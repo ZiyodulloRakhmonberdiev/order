@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Order</title>
+</head>
+
+<body>
+
+
+    <div class="container">
+        <h1>Pitsa buyurtma qilish</h1>
+        <div class="wrapper">
+            <div class="left">
+                <label class="label">Noni qanday bo'lsin?</label>
+                <div class="select">
+                    <select id="select" onchange="getSelectValue()">
+                        <option value="Yupqa">Yupqa</option>
+                        <option value="O'rtacha">O'rtacha</option>
+                        <option value="Qalin">Qalin</option>
+                    </select>
+                </div>
+                <label class="label">Kattaligi</label>
+                <div class="radio__wrapper">
+                    <div class="radio">
+                        <input class="radio__input" name="size" type="radio" id="radio_1" value="25 sm">
+                        <label class="radio__label radio__label-01" for="radio_1"></label>
+                    </div>
+
+                    <div class="radio">
+                        <input class="radio__input" name="size" type="radio" id="radio_2" value="30 sm">
+                        <label class="radio__label radio__label-02" for="radio_2"></label>
+                    </div>
+
+                    <div class="radio">
+                        <input class="radio__input" name="size" type="radio" id="radio_3" value="35 sm">
+                        <label class="radio__label radio__label-03" for="radio_3"></label>
+                    </div>
+                </div>
+
+                <label class="label">Ustiga nima solaylik?</label>
+                <div class="checkbox__wrapper">
+                    <div class="checkbox">
+                        <input class="checkbox__input" type="checkbox" id="checkbox_1" value="Pomidor">
+                        <label class="checkbox__label" for="checkbox_1">Pomidor</label>
+                    </div>
+                    <div class="checkbox">
+                        <input class="checkbox__input" type="checkbox" id="checkbox_2" value="Tuzlangan bodring">
+                        <label class="checkbox__label" for="checkbox_2">Tuzlangan bodring</label>
+                    </div>
+                    <div class="checkbox">
+                        <input class="checkbox__input" type="checkbox" id="checkbox_3" value="Kurka go'shti">
+                        <label class="checkbox__label" for="checkbox_3">Kurka go'shti</label>
+                    </div>
+                    <div class="checkbox">
+                        <input class="checkbox__input" type="checkbox" id="checkbox_4" value="Qo'ziqorin">
+                        <label class="checkbox__label" for="checkbox_4">Qo'ziqorin</label>
+                    </div>
+                    <div class="checkbox">
+                        <input class="checkbox__input" type="checkbox" id="checkbox_5" value="Zaytun">
+                        <label class="checkbox__label" for="checkbox_5">Zaytun</label>
+                    </div>
+                    <div class="checkbox">
+                        <input class="checkbox__input" type="checkbox" id="checkbox_6" value="Qazi">
+                        <label class="checkbox__label" for="checkbox_6">Qazi</label>
+                    </div>
+
+                </div>
+                <label class="label">Qo'shimchalar</label>
+                <div class="checkbox__wrapper">
+                    <div class="checkbox">
+                        <input class="checkbox__input-add" type="checkbox" id="checkbox_7" value="Achchiq">
+                        <label class="checkbox__label" for="checkbox_7">Achchiq</label>
+                    </div>
+                    <div class="checkbox">
+                        <input class="checkbox__input-add" type="checkbox" id="checkbox_8" value="Sosiskali">
+                        <label class="checkbox__label" for="checkbox_8">Sosiskali</label>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <div>
+                    <label class="label">Non:</label>
+                    <span class="bread"></span>
+                </div>
+                <div>
+                    <label class="label">Kattaligi:</label>
+                    <span class="selected-size"></span>
+
+                </div>
+                <div>
+                    <label class="label">Ustiga:</label>
+                    <div class="to-top__wrapper">
+                        <span class="to-top"></span>
+                    </div>
+
+                </div>
+                <div>
+                    <label class="label">Qo'shimcha:</label>
+                    <span class="addition"></span>
+                </div>
+                <button class="order-button" type="button">Buyurtma berish</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Get select items
+        function getSelectValue() {
+            var selectValue = document.getElementById('select').value
+            document.querySelector('.bread').innerHTML = selectValue
+        }
+
+        let orderBtn = document.querySelector('.order-button')
+
+
+        // Get radio items
+        orderBtn.addEventListener('click', () => {
+            var selected = document.querySelector('input[type="radio"]:checked')
+            let selectedSize = document.querySelector('.selected-size')
+            selectedSize.innerText = selected.value
+        })
+
+        // Get checkbox items
+        var checkboxes = document.querySelectorAll('.checkbox__input')
+        var toTop = document.querySelector('.to-top')
+        var listArray = []
+        for (var checkbox of checkboxes) {
+            checkbox.addEventListener('click', function () {
+                if (this.checked == true) {
+                    listArray.push(this.value)
+                    toTop.innerHTML = listArray.join('<br />')
+                } else {
+                    listArray = listArray.filter(e => e !== this.value)
+                    toTop.innerHTML = listArray.join('<br />')
+                }
+            })
+        }
+        // Get second checkbox items
+        var addCheckboxes = document.querySelectorAll('.checkbox__input-add')
+        var addList = document.querySelector('.addition')
+        var addListArray = []
+        for (var addCheckbox of addCheckboxes) {
+            addCheckbox.addEventListener('click', function () {
+                if (this.checked == true) {
+                    addListArray.push(this.value)
+                    addList.innerHTML = addListArray.join('<br />')
+                } else {
+                    addListArray = addListArray.filter(e => e !== this.value)
+                    addList.innerHTML = addListArray.join('<br />')
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
